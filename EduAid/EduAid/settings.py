@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-$5=k*v&^%^ppfy6r14az17bkqkn0o#$s#yh-0l%bggdi_gyx91
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -147,4 +147,16 @@ CORS_ALLOWED_ORIGINS = [
     "https://127.0.0.1:3000",
     # Add more allowed origins as needed
 ]
+
+CORS_ORIGIN_ALLOW_ALL = True
+
+REST_FRAMEWORK = {
+    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication'    
+        ]
+}
+
+
+AUTH_USER_MODEL = "Accounts.User"
 
