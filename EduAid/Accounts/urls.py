@@ -1,10 +1,10 @@
 from django.urls import path
 
 from Accounts.views import (
-    PasswordResetView,
+
     UserLoginView,
     UserPasswordChangeView,
-    UserPasswordResetView,
+ 
     UserProfileView,
     UserRegiatrationView,
 )
@@ -18,14 +18,14 @@ urlpatterns = [
     path(
         "changepassword/", UserPasswordChangeView.as_view(), name="user_password_change"
     ),  # Password Change
-    path(
-        "send_reset_password_email/",
-        PasswordResetView.as_view(),
-        name="user_password_reset",
-    ),  # Passowrd Reset
-    path(
-        "user_password_reset/<uid>/<token>/",
-        UserPasswordResetView.as_view(),
-        name="user_password_reset",
-    ),  # PPassword reset token send
+    # path(
+    #     "send_reset_password_email/",
+    #     PasswordResetView.as_view(),
+    #     name="send_password_reset_token",
+    # ),  # Passowrd Reset
+    # path(
+    #     "user_password_reset/<uid>/<token>/",
+    #     UserPasswordResetView.as_view(),
+    #     name="user_password_reset",
+    # ),  # PPassword reset token send
 ]
