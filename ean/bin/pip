@@ -1,4 +1,4 @@
-#!/Users/napa/Documents/EAN/ean/bin/python3.11
+#!/Users/napa/Documents/EAN/ean/bin/python
 # -*- coding: utf-8 -*-
 import re
 import sys

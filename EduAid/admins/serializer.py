@@ -1,12 +1,14 @@
 from .models import Category,Subject,Topic,Subtopic,Syllabus
 from rest_framework import serializers
+from .file_upload import Uploader
 
 # Category Serialization
 
-# class Create_Category_Serializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = Category
-#         fields = '__all__'
+class Search_Serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'
+        ref_name = 'CategorySearch'
 
 
 
@@ -44,3 +46,13 @@ class Syllabus_Serializer(serializers.ModelSerializer):
     class Meta:
         model = Syllabus
         fields = '__all__'        
+
+
+
+
+ # Uploader serializer 
+
+class Uploader_serializer(serializers.ModelSerializer):
+    class Meta:
+        model = Uploader
+        fields = '__all__'

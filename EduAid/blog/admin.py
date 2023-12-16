@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Blog, ResourceUploader
+from .models import Blog, Comment
 
 # Register your models here.
 
@@ -18,16 +18,19 @@ class Blog_Admin(admin.ModelAdmin):
         "slug",
     )
 
+    
+
 
 admin.site.register(Blog, Blog_Admin)
 
 
-class Resource_Admin(admin.ModelAdmin):
+class Comment_Admin(admin.ModelAdmin):
     list_display = (
-        "blog",
-        "comment",
-        "date",
+        "post",
+        "name",
+        "body",
+        "date_added",
     )
 
 
-admin.site.register(ResourceUploader, Resource_Admin)
+admin.site.register(Comment, Comment_Admin)

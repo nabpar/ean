@@ -6,7 +6,7 @@ from django.utils.text import slugify
 # Create your models here.
 
 
-def File(instance, filename):
+def Blog_File(instance, filename):
     return "image/{filename}".format(filename=filename)
 
 
@@ -16,8 +16,8 @@ class Blog(models.Model):
     category = models.ForeignKey(
         Category, on_delete=models.CASCADE, related_name="data_from_category"
     )
-    content = models.CharField(max_length=100)
-    image = models.ImageField(upload_to=File, blank=True, null=True)
+    content = models.TextField()
+    image = models.ImageField(upload_to=Blog_File, blank=True, null=True)
     date_created = models.DateTimeField(auto_now_add=True)
     date_updated = models.DateTimeField(auto_now=True)
     created_by = models.CharField(max_length=100)
@@ -36,12 +36,19 @@ class Blog(models.Model):
         return self.title
 
 
-class ResourceUploader(models.Model):
-    blog = models.ForeignKey(
+class Comment(models.Model):
+    post = models.ForeignKey(
         Blog,
         on_delete=models.CASCADE,
         related_name="Resourceuploader_from_blog",
         null=True,
     )
-    comment = models.TextField(max_length=255, null=True, blank=True)
-    date = models.DateTimeField(auto_now_add=True)
+    # upload_file = models.FilePathField()
+    name = models.CharField(max_length=255)
+    body = models.TextField()
+    date_added = models.DateTimeField(auto_now_add=True)
+
+
+
+    def __str__(self):
+        return '%s - %s' %(self.Blog.title, self.name)

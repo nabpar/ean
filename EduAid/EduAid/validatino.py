@@ -13,4 +13,8 @@ isalphanumericalvalidator = RegexValidator(
 # for the contact validations
 iscontactvalidator = RegexValidator(
     "((98)|(97))(\d){8}", message="Invalide data to the fields......"
+
+)
+isimagevalidator=FileExtensionValidator(
+    "((.png)|(.jpeg)|(.heic))", message="Invalid image extension....."
 )

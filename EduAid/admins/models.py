@@ -16,10 +16,12 @@ class Category(BaseClass):
             self.slug=slugify(self.name)
         self.slug = slugify(self.slug)
         super(Category,self).save(*args,**kwargs)
+       
             
 
     def __str__(self):
         return self.name    
+  
     
 
 class Subject(BaseClass):
@@ -30,7 +32,7 @@ class Subject(BaseClass):
 
     def __str__(self):
         return self.name   
-    
+ 
 
 
 class Topic(BaseClass):
@@ -57,7 +59,7 @@ class Syllabus(BaseClass):
    
     category = models.ForeignKey(Category, on_delete=models.CASCADE,null=True)
     subject = models.ForeignKey(Subject, on_delete=models.CASCADE,null=True)
-    syllabus_file=models.FileField(upload_to='files',blank=True,null=True,)
+    syllabus_file=models.FileField(upload_to='syllabus/files',blank=True,null=True,)
     
 
     def __srt__(self):

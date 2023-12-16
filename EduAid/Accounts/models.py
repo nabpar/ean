@@ -1,7 +1,7 @@
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager
 from django.db import models
 
-from EduAid.validatino import isalphavalidator
+from EduAid.validatino import isalphavalidator,isimagevalidator
 
 # Create your models here.
 
@@ -33,6 +33,7 @@ class UserManager(BaseUserManager):
             name=name,
         )
         user.is_admin = True
+        # user.is_superuser=True
         user.save(using=self._db)
         return user
 
@@ -46,8 +47,11 @@ class User(AbstractBaseUser):
     name = models.CharField(max_length=64, validators=[isalphavalidator])
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
+    #add superuser= true
+    # is_superuser=models.BooleanField()
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
+
 
     objects = UserManager()
 

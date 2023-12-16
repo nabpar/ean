@@ -43,20 +43,24 @@ INSTALLED_APPS = [
 ]
 
 CUSTOM_APPS = [
-    # 'rest_framework_swagger',
-    'corsheaders',
 
+    'rest_framework_swagger',
+    'corsheaders',
+    'django_filters',
     "rest_framework",
     "drf_yasg",
     'Accounts',
     "admins",
     "blog",
+    'srm',
+
 ]
 INSTALLED_APPS += CUSTOM_APPS
 
 
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',    ## this is for corseheaders
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -68,10 +72,12 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'EduAid.urls'
 
+CORS_ORIGIN_ALLOW_ALL = True  ## to allow data from the front end
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR,)],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -134,7 +140,7 @@ USE_TZ = True
 
 STATIC_URL = "/static/"
 MEDIA_URL = "/media/"
-MEDIA_ROOT = os.path.join(BASE_DIR, "documents")
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
 
 
@@ -153,7 +159,7 @@ CORS_ALLOWED_ORIGINS = [
 CORS_ORIGIN_ALLOW_ALL = True
 
 REST_FRAMEWORK = {
-    # 'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
+    'DEFAULT_FILTER_BACKENDS': ['django_filters.rest_framework.DjangoFilterBackend'],
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework_simplejwt.authentication.JWTAuthentication'    
         ]
@@ -187,22 +193,13 @@ SIMPLE_JWT = {
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
 }
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER='naparajuli11@gmail.com'
+EMAIL_HOST_PASSWORD = 'nqqjhooznweksavw'
+EMAIL_USE_TLS = False
+EMAIL_USE_SSL = False  # Change to False
 
-# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
-# EMAIL_HOST = 'your_email_host'
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
-# EMAIL_HOST_USER = 'your_email@example.com'
-# EMAIL_HOST_PASSWORD = 'your_email_password'
-
-# Email Configuration
-# EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
-# EMAIl_HOST = "smtp.gmail.com"
-# EMAIL_PORT = 587
-# # EMAIL_HOST_USER = os.environ.get("EMAIL_USER")
-# # EMAIL_HOST_PASSWORD = os.environ.get("EMAIL_PASS")
-# EMAIL_USER = 'napaofficial@gmail.com'
-# EMAIL_PASS = 'par'
-# EMAIL_FROM = 'nabinparajuli005@gmail.com'
-
-# EMAIL_USE_TLS = True
+# EMAIL_ID = 'naparajuli11@gmail.com'
+# EMAIL_PW = 'nqqjhooznweksavw'  
