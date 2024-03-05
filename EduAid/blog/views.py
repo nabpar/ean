@@ -90,7 +90,7 @@ class Upadate_Blog(generics.UpdateAPIView):
     serializer_class = Blog_Serializer
 
 
-class Detail_Blog(generics.DestroyAPIView):
+class Destroy_Blog(generics.DestroyAPIView):
     queryset = Blog.objects.all()
     serializer_class = Blog_Serializer
 
@@ -98,17 +98,17 @@ class Detail_Blog(generics.DestroyAPIView):
 # For Resource Uploader
 
 
-class Create_Resource(generics.CreateAPIView):
+class Create_Comment(generics.CreateAPIView):
     queryset = Comment.objects.all()
     serializer_class = Comment_serializer
 
 
-class Update_Resource(generics.UpdateAPIView):
+class Update_Comment(generics.UpdateAPIView):
     queryset = Comment.objects.all()
     serializer_class = Comment_serializer
 
 
-class Delete_Resource(generics.DestroyAPIView):
+class Delete_Comment(generics.DestroyAPIView):
     queryset = Comment.objects.all()
     serializer_class = Comment_serializer
 

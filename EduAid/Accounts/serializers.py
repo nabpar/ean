@@ -9,6 +9,9 @@ from Accounts.utils import Util
 from django.core.mail import send_mail
 from django.conf import settings
 from .models import User
+from .profile import Profile
+
+
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -16,7 +19,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["name", "email", "password", "password2"]
+        fields = ["name", "email", 'contact',"password", "password2"]
         extra_kwargs = {"password2": {"write_only": True}}
 
     def validate(self, attrs):
@@ -32,6 +35,7 @@ class UserSerializer(serializers.ModelSerializer):
         return User.objects.create_user(**validate_data)
 
 
+
 class UserLoginSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(max_length=255)
 
@@ -40,10 +44,25 @@ class UserLoginSerializer(serializers.ModelSerializer):
         fields = ["email", "password"]
 
 
+# ## making user profile serializer for accessing instance user
+class ProfileSerializer(serializers.ModelSerializer):
+    email = serializers.EmailField(source = 'user.email',read_only = True)
+    
+    class Meta:
+        model = Profile
+        fields = ["id", "email", "name","contact","image"]
+        # fields = ['id','email']
+
+# serializeer for User Profile
 class UserProfileSerializer(serializers.ModelSerializer):
+    name = serializers.CharField(source = 'profile.name',read_only=True)
+    contact = serializers.IntegerField(source = 'profile.contact',read_only = True)
+    image = serializers.ImageField(source = 'profile.image',read_only =True )
+    
     class Meta:
         model = User
-        fields = ["id", "email", "name"]
+        fields = ["id", "email", "name","contact","image"]
+        # fields = '__all__'
 
 
 class UserPasswordChangeSerializer(serializers.ModelSerializer):
@@ -95,17 +114,17 @@ class PasswordResetSerializer(serializers.Serializer):
             
             # uid=urlsafe_base64_encode(force_bytes(user.id)) 
             # send emal
-            send_mail(
-                "testing",
-                "Here is the message.",
-                "naparajuli11@gmail.com",
-                ["napaofficial7@gmail.com"],
-                fail_silently=False,)
-            body = "click following link to reset your password" + link
-            data = {"subject": "reset.password", "body": body, "to_email": user.email}
-            Util.send_email(data)
+            # send_mail(
+            #     "testing",
+            #     "Here is the message.",
+            #     "napaofficial7@gmail.com",
+            #     ["napaofficial7@gmail.com"],
+            #     fail_silently=False,)
+            # body = "click following link to reset your password" + link
+            # data = {"subject": "reset.password", "body": body, "to_email": user.email}
             # Util.send_email(data)
-              # Send email with the reset link
+            # # Util.send_email(data)
+            #   # Send email with the reset link
           
 
             return attrs

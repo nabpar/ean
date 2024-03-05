@@ -1,4 +1,6 @@
+from collections.abc import Iterable
 from django.db import models
+from Accounts.models import User
 
 
 
@@ -9,3 +11,5 @@ class BaseClass(models.Model):
     class Meta:
         ordering = ['name','date_created','date_updated']
         abstract = True
+
+

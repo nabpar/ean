@@ -10,8 +10,8 @@ from django.shortcuts import render
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from  rest_framework import generics
-from .serializer import Category_Serializer,Subject_Serializer,Topic_Serializer,Subtopic_Serializer,Syllabus_Serializer,Search_Serializer,Uploader_serializer
-from .models import Category,Subject,Topic,Subtopic,Syllabus,BaseClass
+from .serializer import Category_Serializer,Subject_Serializer,Syllabus_Serializer,Search_Serializer,Uploader_serializer
+from .models import Category,Subject,Syllabus
 from rest_framework.filters import SearchFilter,OrderingFilter
 from rest_framework.viewsets import ModelViewSet
 from .file_upload import Uploader
@@ -110,56 +110,11 @@ class SearchCategory(generics.ListAPIView):
 
 
 
-
-
-
-
-        # search_term = self.request.query_params.get('search', None)
-
-        # if search_term:
-        #     # Create a complex query using Q objects to achieve the desired filtering
-        #     starts_with_results = queryset.filter(name__istartswith=search_term)
-        #     contains_results = queryset.filter(name__icontains=search_term)
-        #     # queryset = starts_with_results.union(contains_results).distinct()  # Use distinct() to remove duplicates
-        #     # starts_with_list = list(starts_with_results)
-        #     # contains_list = list(contains_results)
-        #     results_queeyset = starts_with_results | contains_results
-
-        #     return results_queeyset
-
-        # return queryset
-        # if search_term:
-        #     starts_with_results = queryset.filter(name__istartswith=search_term)
-        #     contains_results = queryset.filter(name__icontains = search_term)
-        #     # queryset = starts_with_results.union(contains_results)
-        #         # Convert QuerySets to lists and concatenate them
-        #     # starts_with_list = list(starts_with_results)
-        #     # contains_list = list(contains_results)
-        #     combined_results = starts_with_results | contains_results
-
-        #     return combined_results 
-
-        #     #  queryset = queryset.filter(Q(name__istartswith=search_term) | Q(name__icontains=search_term))
-        #     print("search")
-
-
-        # return queryset
-
-    # def get_queryset(self):
-    #     queryset = Category.objects.all()
-    #     name = self.request.query_params.get("name")
-    #     if name is not None:
-    #         queryset = queryset.filter__icontains(category_name = name)
-
-    #     return queryset
-
-# For Category
-
-
-
 class Create_Category_View(generics.CreateAPIView):
     queryset= Category.objects.all()
     serializer_class = Category_Serializer
+
+
 
 class List_Category_view(generics.ListAPIView):
     queryset= Category.objects.all()
@@ -193,6 +148,7 @@ class Create_Subject_View(generics.CreateAPIView):
 class List_Subject_view(generics.ListAPIView):
     queryset = Subject.objects.all()
     serializer_class = Subject_Serializer
+    filterset_fields = ('category','name')
 
     # renderer_classes = [TemplateHTMLRenderer]
     # template_name = 'my_template.html'
@@ -240,41 +196,41 @@ class Delete_Subject_View(generics.DestroyAPIView):
 
 
 
-# For Topic
+# # For Topic
 
-class Create_Topic_View(generics.CreateAPIView):
-    queryset= Subject.objects.all()
-    serializer_class = Syllabus_Serializer
+# class Create_Topic_View(generics.CreateAPIView):
+#     queryset= Subject.objects.all()
+#     serializer_class = Syllabus_Serializer
 
-class List_Topic_view(generics.ListAPIView):
-    queryset= Topic.objects.all()
-    serializer_class = Syllabus_Serializer
+# class List_Topic_view(generics.ListAPIView):
+#     queryset= Topic.objects.all()
+#     serializer_class = Syllabus_Serializer
 
-class Update_Topic_View(generics.UpdateAPIView):
-    queryset = Topic.objects.all()    
-    serializer_class = Syllabus_Serializer
+# class Update_Topic_View(generics.UpdateAPIView):
+#     queryset = Topic.objects.all()    
+#     serializer_class = Syllabus_Serializer
 
-class Delete_Topic_View(generics.DestroyAPIView):
-    queryset = Topic.objects.all()
-    serializer_class = Syllabus_Serializer
+# class Delete_Topic_View(generics.DestroyAPIView):
+#     queryset = Topic.objects.all()
+#     serializer_class = Syllabus_Serializer
 
-# For Sub_Topic
+# # For Sub_Topic
 
-class Create_Subtopic_View(generics.CreateAPIView):
-    queryset= Subtopic.objects.all()
-    serializer_class = Subtopic_Serializer
+# class Create_Subtopic_View(generics.CreateAPIView):
+#     queryset= Subtopic.objects.all()
+#     serializer_class = Subtopic_Serializer
 
-class List_Subtopic_view(generics.ListAPIView):
-    queryset= Subtopic.objects.all()
-    serializer_class =Subtopic_Serializer
+# class List_Subtopic_view(generics.ListAPIView):
+#     queryset= Subtopic.objects.all()
+#     serializer_class =Subtopic_Serializer
 
-class Update_Subtopic_View(generics.UpdateAPIView):
-    queryset = Subtopic.objects.all()    
-    serializer_class = Subtopic_Serializer
+# class Update_Subtopic_View(generics.UpdateAPIView):
+#     queryset = Subtopic.objects.all()    
+#     serializer_class = Subtopic_Serializer
 
-class Delete_Subtopic_View(generics.DestroyAPIView):
-    queryset = Subtopic.objects.all()
-    serializer_class = Subtopic_Serializer
+# class Delete_Subtopic_View(generics.DestroyAPIView):
+#     queryset = Subtopic.objects.all()
+#     serializer_class = Subtopic_Serializer
 
 
 # For Syllabus
@@ -282,19 +238,19 @@ class Delete_Subtopic_View(generics.DestroyAPIView):
 
 class Create_Syllabus_View(generics.CreateAPIView):
     queryset= Syllabus.objects.all()
-    serializer_class = Subtopic_Serializer
+    serializer_class = Syllabus_Serializer
 
 class List_Syllabus_view(generics.ListAPIView):
     queryset= Syllabus.objects.all()
-    serializer_class =Subtopic_Serializer
+    serializer_class =Syllabus_Serializer
 
 class Update_Syllabus_View(generics.UpdateAPIView):
     queryset = Syllabus.objects.all()    
-    serializer_class = Subtopic_Serializer
+    serializer_class = Syllabus_Serializer
 
 class Delete_Syllabus_View(generics.DestroyAPIView):
     queryset = Syllabus.objects.all()
-    serializer_class = Subtopic_Serializer
+    serializer_class = Syllabus_Serializer
 
 
 ## for Uploader 

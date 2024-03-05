@@ -30,4 +30,9 @@ urlpatterns = [
          UserPasswordResetView.as_view(),
          name="user_password_reset",
      ),  # PPassword reset token send
+
+     path("student/profile/",UserLoginView.as_view(),name='stu_profile') # url for the student profile
+
+
+     
 ]

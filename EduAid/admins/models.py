@@ -16,6 +16,9 @@ class Category(BaseClass):
             self.slug=slugify(self.name)
         self.slug = slugify(self.slug)
         super(Category,self).save(*args,**kwargs)
+
+    def get_related_subjects(self):
+        return self.subjects.all()     
        
             
 
@@ -35,25 +38,25 @@ class Subject(BaseClass):
  
 
 
-class Topic(BaseClass):
-    category = models.ForeignKey(Category, on_delete= models.CASCADE,default=1)
-    subject = models.ForeignKey(Subject, on_delete= models.CASCADE,default=1)
+# class Topic(BaseClass):
+#     category = models.ForeignKey(Category, on_delete= models.CASCADE,default=1)
+#     subject = models.ForeignKey(Subject, on_delete= models.CASCADE,default=1)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
 
-    class Meta(BaseClass.Meta):
-        db_table = "admins_topic"
+#     class Meta(BaseClass.Meta):
+#         db_table = "admins_topic"
 
 
-class Subtopic(BaseClass):
-    category=models.ForeignKey(Category,on_delete=models.CASCADE)
-    subject=models.ForeignKey(Subject,on_delete=models.CASCADE)
-    topic=models.ForeignKey(Topic,on_delete=models.CASCADE)
-    slug=models.SlugField(blank= True, null= True)
+# class Subtopic(BaseClass):
+#     category=models.ForeignKey(Category,on_delete=models.CASCADE)
+#     subject=models.ForeignKey(Subject,on_delete=models.CASCADE)
+#     topic=models.ForeignKey(Topic,on_delete=models.CASCADE)
+#     slug=models.SlugField(blank= True, null= True)
 
-    def __str__(self):
-        return self.name
+#     def __str__(self):
+#         return self.name
     
 class Syllabus(BaseClass):
    

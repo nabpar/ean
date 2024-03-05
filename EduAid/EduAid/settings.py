@@ -44,6 +44,7 @@ INSTALLED_APPS = [
 
 CUSTOM_APPS = [
 
+    "verify_email.apps.VerifyEmailConfig",
     'rest_framework_swagger',
     'corsheaders',
     'django_filters',
@@ -53,6 +54,8 @@ CUSTOM_APPS = [
     "admins",
     "blog",
     'srm',
+    'students',
+    'tinymce'
 
 ]
 INSTALLED_APPS += CUSTOM_APPS
@@ -193,13 +196,28 @@ SIMPLE_JWT = {
     "USER_AUTHENTICATION_RULE": "rest_framework_simplejwt.authentication.default_user_authentication_rule",
 }
 
+# EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+# EMAIL_HOST = 'smtp.gmail.com'
+# EMAIL_PORT = 587
+# # EMAIL_HOST_USER='naparajuli11@gmail.com'
+# # EMAIL_HOST_PASSWORD = 'nqqjhooznweksavw'
+# EMAIL_USE_TLS = False
+# EMAIL_USE_SSL = False  # Change to False
+
+# # EMAIL_ID = 'naparajuli11@gmail.com'
+# # EMAIL_PW = 'nqqjhooznweksavw'  
+# EMAIL_HOST_USER = 'napaofficial7@gmail.com'
+# EMAIL_PA = 'ugvggzxcbcuhmbgd'
+# # app.config['MAIL_SERVER'] = 'smtp.gmail.com'
+# # app.config['MAIL_PORT'] = 465
+# # app.config['MAIL_USE_SSL'] = True
+
+
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER='naparajuli11@gmail.com'
-EMAIL_HOST_PASSWORD = 'nqqjhooznweksavw'
-EMAIL_USE_TLS = False
-EMAIL_USE_SSL = False  # Change to False
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = os.environ.get('napaofficial7@gmail.com') 
+EMAIL_HOST_PASSWORD = os.environ.get('ugvggzxcbcuhmbgd')
 
-# EMAIL_ID = 'naparajuli11@gmail.com'
-# EMAIL_PW = 'nqqjhooznweksavw'  
+DEFAULT_FROM_EMAIL = 'noreply<no_reply@domain.com>'

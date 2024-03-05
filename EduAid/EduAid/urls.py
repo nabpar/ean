@@ -48,6 +48,8 @@ urlpatterns = [
     path('',include("blog.urls")),
     path('',include("admins.urls")),
     path('',include("Accounts.urls")),
+    path('',include("students.urls")),
     path('swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # path('verification/', include('verify_email.urls')),	
 ]
 urlpatterns = urlpatterns+static(settings.MEDIA_URL,document_root =  settings.MEDIA_ROOT)

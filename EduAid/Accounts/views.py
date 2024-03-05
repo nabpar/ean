@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.core.mail import send_mail
 from Accounts.renderers import UserRenderer
+from .models import User
 from Accounts.serializers import (
 
     UserLoginSerializer,
@@ -16,6 +17,7 @@ from Accounts.serializers import (
     UserPasswordResetSerializer,
     UserProfileSerializer,
     UserSerializer,
+    ProfileSerializer
 )
 
 # Create your views here.
@@ -42,7 +44,8 @@ class UserRegistrationView(APIView):
     def post(self, request, format=None):
         serializer = UserSerializer(data=request.data)
         if serializer.is_valid(raise_exception=True):
-            user = serializer.save()
+            user = serializer.save(is_active = False)
+            self.send_verification_email(request, user)
             token = get_tokens_for_user(user)
             return Response(
                 {"token": token, "msg": "registratio succesful"},
@@ -50,6 +53,25 @@ class UserRegistrationView(APIView):
             )
 
         return Response(serializer.errors, status=status)
+    
+
+
+
+
+
+## views for User Profile
+class UserProfileView(APIView):
+    renderer_classes = [UserRenderer]
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request,format=None):
+        print("user")
+        # serializer  = ProfileSerializer(request.user)
+        serializer = UserProfileSerializer(request.user)
+        # serializer = UserProfileSerializer(request.)
+        # serializer = UserProfileSerializer(test_serializer)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 
 
 # User Login
@@ -78,14 +100,7 @@ class UserLoginView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class UserProfileView(APIView):
-    renderer_classes = [UserRenderer]
-    permission_classes = [IsAuthenticated]
 
-    def get(self, request, format=None):
-        print("user")
-        serializer = UserProfileSerializer(request.user)
-        return Response(serializer.data, status=status.HTTP_200_OK)
 
 
 class UserPasswordChangeView(APIView):
@@ -129,3 +144,21 @@ class UserPasswordResetView(APIView):
             )
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+
+
+#  ogin on the Role base.
+    
+    class UserLoginView(APIView):
+        def post(self, request, format=None):
+            email = request.get(email = email)
+            password = request.get(password = password)
+            user = authenticate(email = email,password = password)
+            if user:
+                if user.role == 'student':
+                    return Response({"mag":"login succesful for student"},status=status.HTTP_200_OK)
+                elif user.role == 'teacher':
+                    return Response({"msg":"login succesful for teacher"},status=status.HTTP_200_OK)
+                else:
+                    return Response({"msg":"user role is unknown"},status=status.HTTP_403_FORBIDDEN)
+            else:
+                return Response({"msg":"Invalid credentials"},status=status.HTTP_401_UNAUTHORIZED)    

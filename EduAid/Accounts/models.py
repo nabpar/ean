@@ -7,7 +7,7 @@ from EduAid.validatino import isalphavalidator,isimagevalidator
 
 
 class UserManager(BaseUserManager):
-    def create_user(self, email, name, password=None, password2=None):
+    def create_user(self, email, name,contact,role, password=None, password2=None):
         """
         Creates and saves a User with the given email, name,tc and password.
         """
@@ -17,13 +17,16 @@ class UserManager(BaseUserManager):
         user = self.model(
             email=self.normalize_email(email),
             name=name,
+            contact = contact,
+            role = role, # defingig the role of a user
         )
         print("hellow")
+        user.is_admin = True
         user.set_password(password)
         user.save(using=self._db)
         return user
 
-    def create_superuser(self, email, name, password=None):
+    def create_superuser(self, email,name,contact, password=None):
         """
         Creates and saves a superuser with the given email, name,tc and password.
         """
@@ -31,6 +34,8 @@ class UserManager(BaseUserManager):
             email,
             password=password,
             name=name,
+            contact=contact,
+       
         )
         user.is_admin = True
         # user.is_superuser=True
@@ -43,12 +48,16 @@ class User(AbstractBaseUser):
         verbose_name="email address",
         max_length=255,
         unique=True,
+       
     )
     name = models.CharField(max_length=64, validators=[isalphavalidator])
+    contact = models.BigIntegerField(blank=True,null=True)
+    role = models.CharField(max_length = 20,blank = True,null = True)
     is_active = models.BooleanField(default=True)
     is_admin = models.BooleanField(default=False)
-    #add superuser= true
-    # is_superuser=models.BooleanField()
+    # is_teacher = models.BooleanField(default = False)
+    # is_student = models.BooleanField(default = False)
+   
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -56,7 +65,9 @@ class User(AbstractBaseUser):
     objects = UserManager()
 
     USERNAME_FIELD = "email"
-    REQUIRED_FIELDS = ["name"]
+    # USERNAME_FIELD = "name"
+
+    REQUIRED_FIELDS = ["name",'contact']
 
     def __str__(self):
         return self.email
@@ -76,3 +87,8 @@ class User(AbstractBaseUser):
         "Is the user a member of staff?"
         # Simplest possible answer: All admins are staff
         return self.is_admin
+
+
+
+
+

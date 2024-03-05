@@ -27,18 +27,18 @@ urlpatterns = [
     path('update_subjects/<int:pk>/',views.Update_Subject_View.as_view(),name="Update_Subject"),
     path('delete_subjects/<int:pk>/',views.Delete_Subject_View.as_view(),name="Delete_Subject"),
 
-    # For Topic
-    path('create_topics/',views.Create_Topic_View.as_view(),name="Create_Topic"),
-    path('view_topic/s',views.List_Topic_view.as_view(),name="topic_view"),
-    path('update_topics/<int:pk>/',views.Update_Topic_View.as_view(),name="Update_Topic"),
-    path('delete_topics/<int:pk>/',views.Delete_Topic_View.as_view(),name="Delete_Topic"),
+   #  # For Topic
+   #  path('create_topics/',views.Create_Topic_View.as_view(),name="Create_Topic"),
+   #  path('view_topic/s',views.List_Topic_view.as_view(),name="topic_view"),
+   #  path('update_topics/<int:pk>/',views.Update_Topic_View.as_view(),name="Update_Topic"),
+   #  path('delete_topics/<int:pk>/',views.Delete_Topic_View.as_view(),name="Delete_Topic"),
 
 
-     # For Subtopic
-    path('create_subtopics/',views.Create_Subtopic_View.as_view(),name="Create_Subtopic"),
-    path('view_subtopics/',views.List_Subtopic_view.as_view(),name="Subtopic_View"),
-    path('update_subtopics/<int:pk>/',views.Update_Subtopic_View.as_view(),name="Update_Subtopic"),
-    path('delete_subtopics/<int:pk>/',views.Delete_Subtopic_View.as_view(),name="Delete_Subtopic"),
+   #   # For Subtopic
+   #  path('create_subtopics/',views.Create_Subtopic_View.as_view(),name="Create_Subtopic"),
+   #  path('view_subtopics/',views.List_Subtopic_view.as_view(),name="Subtopic_View"),
+   #  path('update_subtopics/<int:pk>/',views.Update_Subtopic_View.as_view(),name="Update_Subtopic"),
+   #  path('delete_subtopics/<int:pk>/',views.Delete_Subtopic_View.as_view(),name="Delete_Subtopic"),
 
 
  # For Syllabus
@@ -54,4 +54,7 @@ path('view_files/',views.Uploader_ListFiles.as_view(),name="view files"),
 path('create_files/',views.Uploader_CreateFiles.as_view(),name="create files"),
 path('update_files/',views.Uploader_UpdateFiles.as_view(),name="updare files"),
 path('delete_files/',views.Uploader_DeleteFiles.as_view(),name="delete files"),
+
+
+
 ]

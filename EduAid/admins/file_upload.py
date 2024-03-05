@@ -13,6 +13,13 @@ def ImgFile(instance,filename):
 
 class Uploader(models.Model):
     category = models.ForeignKey(Category,on_delete=models.CASCADE,null=True)
+    def get_subject_by_id(category_id):
+        if category_id:
+            return Subject.objects.filter(category=category_id)
+        else:
+            return Subject.objects.filter.none()
+  
+
     subject = models.ForeignKey(
         Subject,
         on_delete=models.CASCADE,
@@ -29,7 +36,7 @@ class Uploader(models.Model):
     def __str__(self):
         return f"{self.category}-{self.subject}"
     
-    def get_subject_by_id(category_id):
+    # def get_subject_by_id(category_id):
         if category_id:
             return Subject.objects.filter(category=category_id)
         else:
