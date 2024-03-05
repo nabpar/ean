@@ -13,8 +13,9 @@ from Accounts.serializers import (
     UserLoginSerializer,
     UserPasswordChangeSerializer,
     PasswordResetSerializer,
+    UserProfileSerializer,
     UserPasswordResetSerializer,
-    # UserProfileSerializer,
+    UserProfileSerializer,
     UserSerializer,
     ProfileSerializer
 )
@@ -58,31 +59,18 @@ class UserRegistrationView(APIView):
 
 
 
-# ## views for User Profile
-# class UserProfileView(APIView):
-#     renderer_classes = [UserRenderer]
-#     permission_classes = [IsAuthenticated]
-
-#     def get(self, request,format=None):
-#         print("user")
-#         # serializer  = ProfileSerializer(request.user)
-#         serializer = UserProfileSerializer(request.user)
-#         # serializer = UserProfileSerializer(request.)
-#         # serializer = UserProfileSerializer(test_serializer)
-#         return Response(serializer.data, status=status.HTTP_200_OK)
-    
 ## views for User Profile
-class ProfileView(APIView):
+class UserProfileView(APIView):
     renderer_classes = [UserRenderer]
     permission_classes = [IsAuthenticated]
 
     def get(self, request,format=None):
         print("user")
         # serializer  = ProfileSerializer(request.user)
-        serializer = ProfileSerializer(request.user)
-   
+        serializer = UserProfileSerializer(request.user)
+        # serializer = UserProfileSerializer(request.)
+        # serializer = UserProfileSerializer(test_serializer)
         return Response(serializer.data, status=status.HTTP_200_OK)
-
 
 
 

@@ -8,10 +8,7 @@ from Accounts.views import (
     # PassUserProfileView,
     PasswordResetView,
     UserPasswordResetView,
-     ProfileView,
-    # UserProfileView,
-   
-
+    UserProfileView,
     
  
 )
@@ -21,8 +18,7 @@ urlpatterns = [
         "register/", UserRegistrationView.as_view(), name="register"
     ),  # Registation of user
     path("login/", UserLoginView.as_view(), name="UserLogin"),  # User Login
-    # path("profile/", UserProfileView.as_view(), name="user_view"),  #User Profile View
-    path("profile/", ProfileView.as_view(), name="user_view"),  # Profile View
+    path("profile/", UserProfileView.as_view(), name="user_view"),  # Profile View
     path(
         "changepassword/", UserPasswordChangeView.as_view(), name="user_password_change"
     ),  # Password Change
